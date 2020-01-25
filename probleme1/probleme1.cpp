@@ -8,17 +8,22 @@ const uint8_t DELAY_20 = 20;
 
 enum Etats
 {
-    INIT,
-    CLICK1,
-    CLICK2,
-    CLICK3,
-    CLICK4,
-    ALLUME
+    INIT,		// initial
+    CLICK1,		// premier click
+    CLICK2,		// deuxième click
+    CLICK3,		// troisième click
+    CLICK4,		// quatrième click
+    ALLUME		// allumer la DEL
 };
 Etats etats = INIT;
 
+
+
+// fonction qui vérifie si le bouton a été appuyé
 bool isclicked() { return (PIND == 0x04); }
 
+
+// fonction pour le debounce
 bool debounce()
 {
     if (isclicked())
@@ -32,6 +37,7 @@ bool debounce()
     return false;
 }
 
+
 int main()
 {
 
@@ -39,6 +45,7 @@ int main()
  DDRB = 0Xff;
     for (;;)
     {
+
         switch (etats)
         {
         case INIT:
@@ -89,6 +96,7 @@ int main()
         }
         case ALLUME:
         {
+			// allumer en rouge et attendre une seconde avant d'éteindre et repasser à l'état INIT
             PORTB = ROUGE;
             _delay_ms(1000);
             etats = INIT;
