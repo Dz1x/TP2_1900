@@ -13,19 +13,23 @@ const uint8_t DELAY_20 = 20;
 
 enum Etats
 {
-    INIT,
-    CLICK1,
-    RELACHE1,
-    CLICK2,
-    RELACHE2,
-    CLICK3
+    INIT,		// initial
+    CLICK1,		// premier Click
+    RELACHE1,	// premier relache
+    CLICK2,		// deuxième Click
+    RELACHE2,	// deuxième relache
+    CLICK3		// troisième Click
 };
+
 Etats etats = INIT;
 
+// fonction pour vérifier si le bouton est cliqué
 bool isClicked()
 {
     return(PIND == 0x04);
 }
+
+// fonction pour la coulleur ambré
 void couleurAmbre()
 {
     while (isClicked())
@@ -37,7 +41,7 @@ void couleurAmbre()
     }
 }
 
-
+// fonction pour le debounce
 bool debounce()
 {
     if (isClicked())
